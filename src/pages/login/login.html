@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title >
-      myMess
+      myMessAdmin (Beta)
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -11,9 +11,10 @@
     <div>
       <img src="assets/imgs/logo.png">
     </div>
+
+    <div [hidden]="!flag" class="captcha" id="recaptcha-container"></div>
     
-    <form [formGroup]="loginForm" (submit)="sendLoginCode()" novalidate>
-      <div class="captcha" id="recaptcha-container"></div>
+    <form *ngIf="flag" [formGroup]="loginForm" (submit)="sendLoginCode()" novalidate>
       
       <ion-label stacked>Mobile Number</ion-label>          
       <ion-item>
@@ -34,13 +35,16 @@
       <button margin-top ion-button block type="submit" id="sign-in-button" [disabled]="!loginForm.valid">Login</button>      
     </form>
 
-    <div *ngIf="windowRef.confirmationResult">
+    <form *ngIf="windowRef.confirmationResult" [formGroup]="resetForm" (submit)="verifyLoginCode()" novalidate>
       <ion-label Stacked>Enter your Verification Code Here</ion-label>
       <ion-item>
-        <ion-input type="text" name="code" [(ngModel)]="verificationCode"></ion-input>
+        <ion-input type="number" formControlName="code" maxlength="6"></ion-input>
       </ion-item>
-      <button ion-button (click)="verifyLoginCode()">Verify</button>
-    </div>    
+      <p *ngIf="!resetForm.controls.code.valid  && resetForm.controls.code.dirty">
+        Enter a valid 6 digits code.
+      </p>
+      <button margin-top ion-button block type="submit" id="verify-button" [disabled]="!resetForm.valid">Verify</button>
+    </form>
   </ion-list>
 
   <div *ngIf="user">
