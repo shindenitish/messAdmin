@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Loading, NavController, LoadingController, AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { AuthProvider } from '../../providers/auth/auth';
+import { WindowProvider } from '../../providers/window/window';
+
 import { ContactValidator } from '../../validators/contact';
 
 import firebase from 'firebase/app';
@@ -11,13 +13,19 @@ import firebase from 'firebase/app';
   selector: 'page-login',
   templateUrl: 'login.html',
 })
-export class LoginPage {
+export class LoginPage implements OnInit {
   
   loading: Loading;
   loginForm: FormGroup;
+
+  windowRef: any;
+  user: any;
+  verificationCode: string;
+
   private appVerifier: firebase.auth.RecaptchaVerifier;
   
   constructor(private authProvider: AuthProvider,
+  private win: WindowProvider,
   private formBuilder: FormBuilder,
   public navCtrl: NavController,
   private alertCtrl: AlertController, 
@@ -29,44 +37,29 @@ export class LoginPage {
     });
   }
 
-  ionViewDidLoad() {
-    this.appVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container');
-    console.log('ionViewDidLoad LoginPage');
+  ngOnInit() {
+    this.windowRef = this.win.windowRef;
+    this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {'size':'invisble'});
+
+    this.windowRef.recaptchaVerifier.render();
   }
 
-  loginUser(){
-    console.log("Parameters:", this.loginForm.value.contact, this.loginForm.value.password);
-    
-    firebase.auth().signInWithPhoneNumber('+91'+this.loginForm.value.contact, this.appVerifier)
-    .then(confirmationResult => {
-      let prompt = this.alertCtrl.create({
-        title: 'Enter the Confirmation code',
-        inputs: [{ name: 'confirmationCode', placeholder: 'Confirmation Code' }],
-        buttons: [
-          { text: 'Cancel',
-            handler: data => { console.log('Cancel clicked'); }
-          },
-          { text: 'Send',
-            handler: data => {
-              // Here we need to handle the confirmation code
-              confirmationResult.confirm(data.confirmationCode).then(result=> {
-                // User signed in successfully.
-                console.log(result.user);
-                // ...
-              }).catch(error => {
-                // User couldn't sign in (bad verification code?)
-                // ...
-                console.log(error);
-              });
-            }
-          }
-        ]
-      });
-      prompt.present();
-    }).catch(error => {
-      // Error; SMS not sent
-      console.error("SMS not sent", error);
-    });
+
+  sendLoginCode() {
+    const appVerifier = this.windowRef.recaptchaVerifier;
+
+    const num = '+91'+this.loginForm.value.contact;;
+
+    firebase.auth().signInWithPhoneNumber(num, appVerifier).then(result => {
+      this.windowRef.confirmationResult = result;
+    })
+    .catch( error => console.log(error) );
   }
 
+  verifyLoginCode() {
+    this.windowRef.confirmationResult.confirm(this.verificationCode).then( result => {
+      this.user = result.user;
+    })
+    .catch( error => console.log(error, "Incorrect code entered?"));
+  }
 }

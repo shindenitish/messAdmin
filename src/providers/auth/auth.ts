@@ -17,6 +17,7 @@ export class AuthProvider {
     this.authState.subscribe(user => {
       if(user) {
         this.currentUser = user;
+        console.log('Authprovider executed!', this.currentUser);
       } else {
         this.currentUser = null;
       }

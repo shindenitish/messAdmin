@@ -7,13 +7,13 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list inset>
+  <ion-list inset [hidden]="user">
     <div>
       <img src="assets/imgs/logo.png">
     </div>
     
-    <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
-      <div id="recaptcha-container"></div>
+    <form [formGroup]="loginForm" (submit)="sendLoginCode()" novalidate>
+      <div class="captcha" id="recaptcha-container"></div>
       
       <ion-label stacked>Mobile Number</ion-label>          
       <ion-item>
@@ -33,32 +33,19 @@
       
       <button margin-top ion-button block type="submit" id="sign-in-button" [disabled]="!loginForm.valid">Login</button>      
     </form>
-  
-    <div padding-top style="text-align:center">
-      <!--<a style="color:rgb(245, 165, 140);" (click)="goToResetPassword()">-->
-      <a (click)="goToResetPassword()">
-        Forgot password?
-      </a>
-    </div>
 
-    <div margin-top>
-      <ion-row>
-        <ion-col col-5><hr></ion-col>
-        <ion-col col-2 style="text-align:center;">OR</ion-col>
-        <ion-col col-5><hr></ion-col>
-      </ion-row>
-    </div>
-    
-    <div>
-        <button ion-button icon-left block>
-            <ion-icon name="logo-google"></ion-icon>
-            &nbsp; Log in with Google
-          </button>      
-    </div>
-    <div padding-top style="text-align:center;">
-      <a (click)="createAccount()">
-        Don't have an account yet? Register here!
-      </a>
-    </div>
+    <div *ngIf="windowRef.confirmationResult">
+      <ion-label Stacked>Enter your Verification Code Here</ion-label>
+      <ion-item>
+        <ion-input type="text" name="code" [(ngModel)]="verificationCode"></ion-input>
+      </ion-item>
+      <button ion-button (click)="verifyLoginCode()">Verify</button>
+    </div>    
   </ion-list>
+
+  <div *ngIf="user">
+    You have successfully logged in with your phone number!
+  
+    UserId: {{ user?.uid }}  
+  </div>
 </ion-content>

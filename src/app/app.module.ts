@@ -13,6 +13,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 //import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 import { AuthProvider } from '../providers/auth/auth';
+import { WindowProvider } from '../providers/window/window';
 
 // Initialize Firebase
 const config = {
@@ -44,7 +45,8 @@ const config = {
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    AuthProvider
+    AuthProvider,
+    WindowProvider
   ]
 })
 export class AppModule {}

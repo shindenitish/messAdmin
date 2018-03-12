@@ -13,6 +13,12 @@ page-login{
     }    
 
     form{  
+
+        .captcha{
+            margin:auto!important;
+            border-radius:5px!important;
+            border-color: chartreuse!important;
+        }
             
         p{
             font-size: smaller;
