@@ -17,6 +17,7 @@ export class RegisterPage  implements OnInit{
   
   loading: Loading;
   loginForm: FormGroup;
+  resetForm: FormGroup;
 
   windowRef: any;
 
@@ -36,6 +37,10 @@ export class RegisterPage  implements OnInit{
   ) {
     this.loginForm = formBuilder.group({
       contact: ['', Validators.compose([Validators.required, ContactValidator.isValid])]
+    });
+
+    this.resetForm = formBuilder.group({
+      code: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(6)])],
     });
   }
 
@@ -67,7 +72,7 @@ export class RegisterPage  implements OnInit{
   }
 
   verifyLoginCode() {
-    this.windowRef.confirmationResult.confirm(this.verificationCode)
+    this.windowRef.confirmationResult.confirm(this.resetForm.value.code)
     .then( result => {
       this.user = result.user;
     })

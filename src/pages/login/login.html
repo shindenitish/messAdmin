@@ -12,7 +12,7 @@
       <img src="assets/imgs/logo.png">
     </div>
 
-    <div [hidden]="!flag" class="captcha" id="recaptcha-container"></div>
+    <div [hidden]="!flag" id="recaptcha-container"></div>
     
     <form *ngIf="flag" [formGroup]="loginForm" (submit)="sendLoginCode()" novalidate>
       

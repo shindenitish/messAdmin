@@ -25689,6 +25689,12 @@ page-login .button {
   text-transform: none;
 }
 
+page-login #recaptcha-container {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 page-login form p {
   font-size: smaller;
   color: #e13838 !important;
@@ -25728,8 +25734,7 @@ page-register .button {
   text-transform: none;
 }
 
-page-register .g-recaptcha div {
-  display: block;
+page-register #recaptcha-container div {
   margin-right: auto;
   margin-left: auto;
 }

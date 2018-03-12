@@ -18,7 +18,6 @@ export class LoginPage implements OnInit {
   loading: Loading;
   
   loginForm: FormGroup;
-  resetForm: FormGroup;
 
   windowRef: any;
   user: any;
@@ -35,9 +34,7 @@ export class LoginPage implements OnInit {
     this.loginForm = formBuilder.group({
       contact: ['', Validators.compose([Validators.required, ContactValidator.isValid])],
     });
-    this.resetForm = formBuilder.group({
-      code: ['', Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(6)])],
-    });
+    
   }
 
   ngOnInit() {
@@ -66,7 +63,7 @@ export class LoginPage implements OnInit {
   }
 
   verifyLoginCode() {
-    this.windowRef.confirmationResult.confirm(this.resetForm.value.code).then( result => {
+    this.windowRef.confirmationResult.confirm().then( result => {
       this.user = result.user;
     })
     .catch( error => console.log(error, "Incorrect code entered?"));

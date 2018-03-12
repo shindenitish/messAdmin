@@ -12,22 +12,11 @@ page-register{
         text-transform: none;
     }  
 
-    .g-recaptcha div
+    #recaptcha-container div
     {
-        display: block;
         margin-right: auto;
         margin-left: auto; 
     }
-   
-    // .g-recaptcha{
-    //     margin: auto !important;
-    //     width: auto !important;
-    //     height: auto !important;
-    //     text-align: -webkit-center;
-    //     text-align: -moz-center;
-    //     text-align: -o-center;
-    //     text-align: -ms-center;
-    //  }
 
     form{
             
