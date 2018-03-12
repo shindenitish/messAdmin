@@ -1,3 +1,62 @@
-page-register {
+page-register{
+    
+    img {
+        width: auto;
+        height: 90px;
+        display: block;
+        margin: 0px auto;
+    }
 
+    .button {
+        //background-color: #ec6a5b;
+        text-transform: none;
+    }  
+
+    .g-recaptcha div
+    {
+        display: block;
+        margin-right: auto;
+        margin-left: auto; 
+    }
+   
+    // .g-recaptcha{
+    //     margin: auto !important;
+    //     width: auto !important;
+    //     height: auto !important;
+    //     text-align: -webkit-center;
+    //     text-align: -moz-center;
+    //     text-align: -o-center;
+    //     text-align: -ms-center;
+    //  }
+
+    form{
+            
+        p{
+            font-size: smaller;
+            color: #e13838 !important;
+            padding-left: 5px;
+        }
+
+        ion-label{
+            padding-left: 2px;
+            //color: rgb(163, 24, 24);
+        }
+
+        ion-item{            
+            background: rgb(241, 237, 237) !important;  
+
+            .item-inner{                
+                border-bottom-color: transparent !important; 
+                box-shadow:none!important;                      
+            }
+
+            .input.ng-dirty.ng-valid {
+                border-left: #5bec7f solid 2px;
+            }
+
+            .input.ng-dirty.ng-invalid {
+                border-left: #ec6a5b solid 2px;
+            }
+        }        
+    }
 }

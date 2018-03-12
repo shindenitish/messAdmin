@@ -6,6 +6,7 @@ import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
 
 //Firebase
 import { AngularFireModule } from 'angularfire2';
@@ -29,7 +30,8 @@ const config = {
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ const config = {
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    RegisterPage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },

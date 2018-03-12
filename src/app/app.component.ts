@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from '../pages/login/login';
+import { RegisterPage } from '../pages/register/register';
 
 import { AuthProvider } from '../providers/auth/auth';
 
@@ -9,7 +10,7 @@ import { AuthProvider } from '../providers/auth/auth';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = LoginPage;
+  rootPage:any = RegisterPage;
 
   constructor(authProvider:AuthProvider) {
     // this.authProvider.getAuthState().subscribe((user) => {
